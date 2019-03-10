@@ -1,0 +1,106 @@
+# import * from './generated/prisma.graphql'
+
+type Query {
+  me: User
+  exam(id: ID!): Exam
+  exams(where: ExamWhereInput, orderBy: ExamOrderByInput, skip: Int, first: Int): ExamPayload
+}
+
+type Mutation {
+  signup(name: String!, email: String!, password: String!): Payload
+  signin(email: String!, password: String!): Payload
+  signout: Payload
+  googleSignin(data: UserCreateInput): Payload
+  updateUser(id: ID!, data: UserUpdateInput): Payload
+  createExam(data: ExamCreateInput): Exam
+  updateExam(id: ID!, data: ExamUpdateInput): Payload
+  deleteExam(id: ID!): Payload
+  createQuestion(id: ID!): Payload
+  updateQuestion(id: ID!, data: QuestionUpdateInput): Payload
+  createNode(id: ID!, type: String): Payload
+  updateNode(id: ID!, type: String, variant: Int, text: String): Payload
+  deleteNode(id: ID!, type: String, questionId: ID, answers: [Boolean]): Payload
+  s3Sign(filename: String!, filetype: String!): S3Payload
+}
+
+type User {
+  id: ID!
+  googleID: String
+  name: String!
+  password: String
+  email: String
+  image: String
+  homepage: String
+  role: Role!
+  exams: [Exam]
+  createdAt: DateTime!
+}
+
+type Exam {
+  id: ID!
+  published: Boolean!
+  title: String!
+  description: String
+  code: String
+  pass: Int
+  time: Int
+  image: String
+  downloads: Int
+  cover: [CoverNode]
+  test: [Question]
+  user: User
+  createdAt: DateTime!
+}
+
+type Question {
+  id: ID!
+  variant: Int
+  question: [QuestionNode]
+  choices: [Choice]
+  answer: [Boolean]
+  explanation: [ExplanationNode]
+}
+
+type CoverNode {
+  id: ID!
+  variant: Int!
+  text: String!
+}
+
+type Choice {
+  id: ID!
+  label: String!
+  text: String!
+}
+
+type QuestionNode {
+  id: ID!
+  variant: Int!
+  text: String!
+}
+
+type ExplanationNode {
+  id: ID!
+  variant: Int!
+  text: String!
+  href: String
+}
+
+type Payload {
+  success: Boolean
+}
+
+type ExamPayload {
+  exams: [Exam]
+  count: Int
+}
+
+type S3Payload {
+  requestURL: String
+  fileURL: String
+}
+
+enum Role {
+  USER
+  ADMIN
+}

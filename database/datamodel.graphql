@@ -1,0 +1,67 @@
+type User {
+  id: ID! @unique
+  googleID: String @unique
+  name: String!
+  password: String
+  email: String @unique
+  image: String
+  homepage: String
+  role: Role! @default(value: "USER")
+  exams: [Exam]
+  createdAt: DateTime!
+}
+
+type Exam {
+  id: ID! @unique
+  published: Boolean! @default(value: "false")
+  title: String!
+  description: String @default(value: "")
+  code: String @default(value: "")
+  pass: Int @default(value: "65")
+  time: Int @default(value: "60")
+  image: String @default(value: "")
+  downloads: Int @default(value: "0")
+  cover: [CoverNode] @relation(name: "CoverNodes", onDelete: CASCADE)
+  test: [Question] @relation(name: "ExamQuestions", onDelete: CASCADE)
+  user: User
+  createdAt: DateTime!
+}
+
+type Question {
+  id: ID! @unique
+  variant: Int! @default(value: "0")
+  question: [QuestionNode] @relation(name: "QuestionNodes", onDelete: CASCADE)
+  choices: [Choice] @relation(name: "Choices", onDelete: CASCADE)
+  answer: [Boolean]
+  explanation: [ExplanationNode] @relation(name: "ExplanationNodes", onDelete: CASCADE)
+}
+
+type CoverNode {
+  id: ID! @unique
+  variant: Int! @default(value: "0")
+  text: String! @default(value: "")
+}
+
+type Choice {
+  id: ID! @unique
+  label: String! @default(value: "")
+  text: String! @default(value: "")
+}
+
+type QuestionNode {
+  id: ID! @unique
+  variant: Int! @default(value: "0")
+  text: String! @default(value: "")
+}
+
+type ExplanationNode {
+  id: ID! @unique
+  variant: Int! @default(value: "0")
+  text: String! @default(value: "")
+  href: String @default(value: "")
+}
+
+enum Role {
+  USER
+  ADMIN
+}

@@ -1,0 +1,13 @@
+endpoint: ${env:PRISMA_ENDPOINT}
+secret: ${env:PRISMA_SECRET}
+datamodel: datamodel.graphql
+seed:
+  run: node database
+generate:
+  - generator: javascript-client
+    output: ../src/generated
+  - generator: graphql-schema
+    output: ../src/generated
+hooks:
+  post-deploy:
+    - prisma generate

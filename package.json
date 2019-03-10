@@ -1,0 +1,60 @@
+{
+  "name": "exam-maker-backend",
+  "version": "1.0.0",
+  "description": "apollo server for exam maker",
+  "keywords": [
+    "exam",
+    "simulator"
+  ],
+  "author": {
+    "name": "benjaminadk",
+    "email": "jsonexamsimulator@gmail.com",
+    "url": "https://github.com/exam-simulator"
+  },
+  "homepage": "https://github.com/exam-simulator/maker-backend",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/exam-simulator/maker-backend.git"
+  },
+  "license": "ISC",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon -e js,graphql -x node --inspect src/index.js",
+    "test": "jest",
+    "start": "nodemon src/index.js",
+    "start:ci": "node src/index.js"
+  },
+  "engines": {
+    "node": "10.13.0",
+    "npm": "6.1.0"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "apollo-server-express": "^2.4.6",
+    "aws-sdk": "^2.413.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "graphql": "^14.1.1",
+    "graphql-import": "^0.7.1",
+    "jsonwebtoken": "^8.5.0",
+    "md5": "^2.2.1",
+    "nodemon": "^1.18.10",
+    "prisma-client-lib": "^1.27.1"
+  },
+  "devDependencies": {
+    "apollo-link": "^1.2.9",
+    "apollo-link-http": "^1.5.12",
+    "cross-env": "^5.2.0",
+    "jest": "^24.3.1",
+    "node-fetch": "^2.3.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/utils",
+      "/mocks"
+    ]
+  }
+}

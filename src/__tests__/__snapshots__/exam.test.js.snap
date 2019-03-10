@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Exam Resolvers Get Exam By ID 1`] = `
+Object {
+  "data": Object {
+    "exam": Object {
+      "cover": Array [
+        Object {
+          "id": "cjssjhyeede2w0b70npid97is",
+          "text": "UFC Quiz",
+          "variant": 2,
+        },
+        Object {
+          "id": "cjssjhyeede2w0b70npid97it",
+          "text": "How well do you know your mixed martial arts ?",
+          "variant": 1,
+        },
+      ],
+      "createdAt": "2019-03-03T06:33:46.589Z",
+      "description": "Test your knowledge of mixed martial arts.",
+      "downloads": 8,
+      "id": "cjssjhye6de2t0b706ofy7552",
+      "pass": 65,
+      "published": true,
+      "time": 10,
+      "title": "UFC Quiz",
+    },
+  },
+}
+`;
