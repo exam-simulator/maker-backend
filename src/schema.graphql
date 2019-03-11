@@ -17,6 +17,7 @@ type Mutation {
   deleteExam(id: ID!): Payload
   createQuestion(id: ID!): Payload
   updateQuestion(id: ID!, data: QuestionUpdateInput): Payload
+  deleteQuestion(id: ID!): Payload
   createNode(id: ID!, type: String): Payload
   updateNode(id: ID!, type: String, variant: Int, text: String): Payload
   deleteNode(id: ID!, type: String, questionId: ID, answers: [Boolean]): Payload

@@ -164,6 +164,16 @@ module.exports = {
     }
   },
 
+  deleteQuestion: async (_, args, ctx, info) => {
+    try {
+      await ctx.prisma.deleteQuestion({ ...args })
+      return { success: true }
+    } catch (error) {
+      console.log(error)
+      return { success: false }
+    }
+  },
+
   createNode: async (_, args, ctx, info) => {
     try {
       const { id, type } = args
