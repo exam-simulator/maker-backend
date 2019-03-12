@@ -57,7 +57,7 @@ app.get('/api/search', cors(), require('./routes/search'))
 app.get('/api/download', cors(), require('./routes/download'))
 
 // add middleware to parse cookies and add user to request object
-app.use(cookieParser(), addUserIdToRequest, addUserToRequest)
+app.use('*', cookieParser(), addUserIdToRequest, addUserToRequest)
 
 const httpServer = http.createServer(app)
 server.applyMiddleware({ app, path, server, cors: corsSettings })
