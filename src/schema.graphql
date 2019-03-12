@@ -2,7 +2,7 @@
 
 type Query {
   me: User
-  exam(id: ID!): Exam
+  exam(id: ID): Exam
   exams(where: ExamWhereInput, orderBy: ExamOrderByInput, skip: Int, first: Int): ExamPayload
 }
 
