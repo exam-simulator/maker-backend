@@ -55,6 +55,7 @@ module.exports = {
   },
 
   signout: async (_, args, ctx, info) => {
+    console.log('signout')
     try {
       ctx.res.clearCookie(process.env.COOKIE)
       return { success: true }
