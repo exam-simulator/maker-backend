@@ -6,6 +6,7 @@ module.exports = async (req, res) => {
     where: {
       AND: [
         { published: true },
+        { verified: true },
         {
           OR: [{ title_contains: term }, { description_contains: term }, { code_contains: term }]
         }

@@ -40,6 +40,8 @@ type User {
 type Exam {
   id: ID!
   published: Boolean!
+  verified: Boolean
+  verificationPending: Boolean
   title: String!
   description: String
   code: String

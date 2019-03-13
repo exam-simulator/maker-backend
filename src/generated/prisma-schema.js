@@ -452,6 +452,8 @@ scalar DateTime
 type Exam {
   id: ID!
   published: Boolean!
+  verified: Boolean
+  verificationPending: Boolean
   title: String!
   description: String
   code: String
@@ -473,6 +475,8 @@ type ExamConnection {
 
 input ExamCreateInput {
   published: Boolean
+  verified: Boolean
+  verificationPending: Boolean
   title: String!
   description: String
   code: String
@@ -492,6 +496,8 @@ input ExamCreateManyWithoutUserInput {
 
 input ExamCreateWithoutUserInput {
   published: Boolean
+  verified: Boolean
+  verificationPending: Boolean
   title: String!
   description: String
   code: String
@@ -513,6 +519,10 @@ enum ExamOrderByInput {
   id_DESC
   published_ASC
   published_DESC
+  verified_ASC
+  verified_DESC
+  verificationPending_ASC
+  verificationPending_DESC
   title_ASC
   title_DESC
   description_ASC
@@ -536,6 +546,8 @@ enum ExamOrderByInput {
 type ExamPreviousValues {
   id: ID!
   published: Boolean!
+  verified: Boolean
+  verificationPending: Boolean
   title: String!
   description: String
   code: String
@@ -563,6 +575,10 @@ input ExamScalarWhereInput {
   id_not_ends_with: ID
   published: Boolean
   published_not: Boolean
+  verified: Boolean
+  verified_not: Boolean
+  verificationPending: Boolean
+  verificationPending_not: Boolean
   title: String
   title_not: String
   title_in: [String!]
@@ -676,6 +692,8 @@ input ExamSubscriptionWhereInput {
 
 input ExamUpdateInput {
   published: Boolean
+  verified: Boolean
+  verificationPending: Boolean
   title: String
   description: String
   code: String
@@ -690,6 +708,8 @@ input ExamUpdateInput {
 
 input ExamUpdateManyDataInput {
   published: Boolean
+  verified: Boolean
+  verificationPending: Boolean
   title: String
   description: String
   code: String
@@ -701,6 +721,8 @@ input ExamUpdateManyDataInput {
 
 input ExamUpdateManyMutationInput {
   published: Boolean
+  verified: Boolean
+  verificationPending: Boolean
   title: String
   description: String
   code: String
@@ -729,6 +751,8 @@ input ExamUpdateManyWithWhereNestedInput {
 
 input ExamUpdateWithoutUserDataInput {
   published: Boolean
+  verified: Boolean
+  verificationPending: Boolean
   title: String
   description: String
   code: String
@@ -768,6 +792,10 @@ input ExamWhereInput {
   id_not_ends_with: ID
   published: Boolean
   published_not: Boolean
+  verified: Boolean
+  verified_not: Boolean
+  verificationPending: Boolean
+  verificationPending_not: Boolean
   title: String
   title_not: String
   title_in: [String!]

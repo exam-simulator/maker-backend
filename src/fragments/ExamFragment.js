@@ -2,6 +2,8 @@ module.exports = `
   fragment ExamFragment on Exam {
     id
     published
+    verified
+    verificationPending
     title
     description
     code

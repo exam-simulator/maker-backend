@@ -452,6 +452,10 @@ export type ExamOrderByInput =
   | "id_DESC"
   | "published_ASC"
   | "published_DESC"
+  | "verified_ASC"
+  | "verified_DESC"
+  | "verificationPending_ASC"
+  | "verificationPending_DESC"
   | "title_ASC"
   | "title_DESC"
   | "description_ASC"
@@ -629,6 +633,8 @@ export interface ExamSubscriptionWhereInput {
 
 export interface ExamCreateInput {
   published?: Boolean;
+  verified?: Boolean;
+  verificationPending?: Boolean;
   title: String;
   description?: String;
   code?: String;
@@ -725,6 +731,8 @@ export interface QuestionCreateInput {
 
 export interface ExamUpdateManyDataInput {
   published?: Boolean;
+  verified?: Boolean;
+  verificationPending?: Boolean;
   title?: String;
   description?: String;
   code?: String;
@@ -756,6 +764,10 @@ export interface ExamScalarWhereInput {
   id_not_ends_with?: ID_Input;
   published?: Boolean;
   published_not?: Boolean;
+  verified?: Boolean;
+  verified_not?: Boolean;
+  verificationPending?: Boolean;
+  verificationPending_not?: Boolean;
   title?: String;
   title_not?: String;
   title_in?: String[] | String;
@@ -856,6 +868,8 @@ export interface QuestionNodeCreateInput {
 
 export interface ExamUpdateWithoutUserDataInput {
   published?: Boolean;
+  verified?: Boolean;
+  verificationPending?: Boolean;
   title?: String;
   description?: String;
   code?: String;
@@ -889,6 +903,10 @@ export interface ExamWhereInput {
   id_not_ends_with?: ID_Input;
   published?: Boolean;
   published_not?: Boolean;
+  verified?: Boolean;
+  verified_not?: Boolean;
+  verificationPending?: Boolean;
+  verificationPending_not?: Boolean;
   title?: String;
   title_not?: String;
   title_in?: String[] | String;
@@ -1071,6 +1089,8 @@ export interface QuestionNodeUpdateInput {
 
 export interface ExamUpdateInput {
   published?: Boolean;
+  verified?: Boolean;
+  verificationPending?: Boolean;
   title?: String;
   description?: String;
   code?: String;
@@ -1472,6 +1492,8 @@ export interface QuestionNodeUpdateDataInput {
 
 export interface ExamCreateWithoutUserInput {
   published?: Boolean;
+  verified?: Boolean;
+  verificationPending?: Boolean;
   title: String;
   description?: String;
   code?: String;
@@ -1551,6 +1573,8 @@ export interface QuestionNodeUpdateManyWithWhereNestedInput {
 
 export interface ExamUpdateManyMutationInput {
   published?: Boolean;
+  verified?: Boolean;
+  verificationPending?: Boolean;
   title?: String;
   description?: String;
   code?: String;
@@ -2366,6 +2390,8 @@ export interface ExplanationNodeConnectionSubscription
 export interface Exam {
   id: ID_Output;
   published: Boolean;
+  verified?: Boolean;
+  verificationPending?: Boolean;
   title: String;
   description?: String;
   code?: String;
@@ -2379,6 +2405,8 @@ export interface Exam {
 export interface ExamPromise extends Promise<Exam>, Fragmentable {
   id: () => Promise<ID_Output>;
   published: () => Promise<Boolean>;
+  verified: () => Promise<Boolean>;
+  verificationPending: () => Promise<Boolean>;
   title: () => Promise<String>;
   description: () => Promise<String>;
   code: () => Promise<String>;
@@ -2417,6 +2445,8 @@ export interface ExamSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   published: () => Promise<AsyncIterator<Boolean>>;
+  verified: () => Promise<AsyncIterator<Boolean>>;
+  verificationPending: () => Promise<AsyncIterator<Boolean>>;
   title: () => Promise<AsyncIterator<String>>;
   description: () => Promise<AsyncIterator<String>>;
   code: () => Promise<AsyncIterator<String>>;
@@ -2680,6 +2710,8 @@ export interface AggregateUserSubscription
 export interface ExamPreviousValues {
   id: ID_Output;
   published: Boolean;
+  verified?: Boolean;
+  verificationPending?: Boolean;
   title: String;
   description?: String;
   code?: String;
@@ -2695,6 +2727,8 @@ export interface ExamPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   published: () => Promise<Boolean>;
+  verified: () => Promise<Boolean>;
+  verificationPending: () => Promise<Boolean>;
   title: () => Promise<String>;
   description: () => Promise<String>;
   code: () => Promise<String>;
@@ -2710,6 +2744,8 @@ export interface ExamPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   published: () => Promise<AsyncIterator<Boolean>>;
+  verified: () => Promise<AsyncIterator<Boolean>>;
+  verificationPending: () => Promise<AsyncIterator<Boolean>>;
   title: () => Promise<AsyncIterator<String>>;
   description: () => Promise<AsyncIterator<String>>;
   code: () => Promise<AsyncIterator<String>>;
