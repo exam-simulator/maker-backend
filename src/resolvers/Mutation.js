@@ -1,13 +1,15 @@
 const bcrypt = require('bcryptjs')
 const md5 = require('md5')
+const { combineResolvers } = require('graphql-resolvers')
+const QuestionFragment = require('../fragments/QuestionFragment')
 const signToken = require('../middleware/signToken')
+const { isAdmin, isAuthenticated } = require('./permissions')
 const defaults = require('./utils/defaults')
 const validateSignup = require('./utils/validateSignup')
-const { getSignedUrl } = require('../services/aws')
-const { transport, compose } = require('../services/mail')
-const QuestionFragment = require('../fragments/QuestionFragment')
 const formatAnswerLabel = require('./utils/formatAnswerLabel')
 const createPassword = require('./utils/createPassword')
+const { getSignedUrl } = require('../services/aws')
+const { transport, compose } = require('../services/mail')
 
 module.exports = {
   signup: async (_, args, ctx, info) => {
@@ -85,7 +87,7 @@ module.exports = {
     }
   },
 
-  updateUser: async (_, args, ctx, info) => {
+  updateUser: combineResolvers(isAuthenticated, async (_, args, ctx, info) => {
     try {
       await ctx.prisma.updateUser({ where: { id: args.id }, data: args.data })
       return { success: true }
@@ -93,9 +95,9 @@ module.exports = {
       console.log(error)
       return { success: false }
     }
-  },
+  }),
 
-  createExam: async (_, args, ctx, info) => {
+  createExam: combineResolvers(isAuthenticated, async (_, args, ctx, info) => {
     try {
       const exam = await ctx.prisma.createExam({
         ...args.data,
@@ -109,9 +111,9 @@ module.exports = {
       console.log(error)
       return null
     }
-  },
+  }),
 
-  updateExam: async (_, args, ctx, info) => {
+  updateExam: combineResolvers(isAuthenticated, async (_, args, ctx, info) => {
     try {
       await ctx.prisma.updateExam({
         where: { id: args.id },
@@ -122,9 +124,9 @@ module.exports = {
       console.log(error)
       return { success: false }
     }
-  },
+  }),
 
-  deleteExam: async (_, args, ctx, info) => {
+  deleteExam: combineResolvers(isAuthenticated, async (_, args, ctx, info) => {
     try {
       await ctx.prisma.deleteExam({
         id: args.id
@@ -134,9 +136,9 @@ module.exports = {
       console.log(error)
       return { success: false }
     }
-  },
+  }),
 
-  createQuestion: async (_, args, ctx, info) => {
+  createQuestion: combineResolvers(isAuthenticated, async (_, args, ctx, info) => {
     try {
       await ctx.prisma.updateExam({
         where: { id: args.id },
@@ -151,9 +153,9 @@ module.exports = {
       console.log(error)
       return { success: false }
     }
-  },
+  }),
 
-  updateQuestion: async (_, args, ctx, info) => {
+  updateQuestion: combineResolvers(isAuthenticated, async (_, args, ctx, info) => {
     try {
       await ctx.prisma.updateQuestion({
         where: { id: args.id },
@@ -164,9 +166,9 @@ module.exports = {
       console.log(error)
       return { success: false }
     }
-  },
+  }),
 
-  deleteQuestion: async (_, args, ctx, info) => {
+  deleteQuestion: combineResolvers(isAuthenticated, async (_, args, ctx, info) => {
     try {
       await ctx.prisma.deleteQuestion({ ...args })
       return { success: true }
@@ -174,9 +176,9 @@ module.exports = {
       console.log(error)
       return { success: false }
     }
-  },
+  }),
 
-  createNode: async (_, args, ctx, info) => {
+  createNode: combineResolvers(isAuthenticated, async (_, args, ctx, info) => {
     try {
       const { id, type } = args
       const payload = {
@@ -210,9 +212,9 @@ module.exports = {
       console.log(error)
       return { success: false }
     }
-  },
+  }),
 
-  updateNode: async (_, args, ctx, info) => {
+  updateNode: combineResolvers(isAuthenticated, async (_, args, ctx, info) => {
     try {
       const { id, type, variant, text } = args
       const payload = { where: { id }, data: { variant, text } }
@@ -233,9 +235,9 @@ module.exports = {
       console.log(error)
       return { success: false }
     }
-  },
+  }),
 
-  deleteNode: async (_, args, ctx, info) => {
+  deleteNode: combineResolvers(isAuthenticated, async (_, args, ctx, info) => {
     try {
       const { id, type, questionId, answers } = args
       if (type === 'cover') {
@@ -256,9 +258,9 @@ module.exports = {
       console.log(error)
       return { success: false }
     }
-  },
+  }),
 
-  requestVerification: async (_, args, ctx, info) => {
+  requestVerification: combineResolvers(isAuthenticated, async (_, args, ctx, info) => {
     try {
       const exam = await ctx.prisma.updateExam({
         where: { id: args.id },
@@ -275,9 +277,9 @@ module.exports = {
       console.log(error)
       return { success: false }
     }
-  },
+  }),
 
-  s3Sign: async (_, args, ctx, info) => {
+  s3Sign: combineResolvers(isAuthenticated, async (_, args, ctx, info) => {
     try {
       const Bucket = process.env.AWS_BUCKET
       const params = {
@@ -293,5 +295,5 @@ module.exports = {
       console.log(error)
       return { requestURL: null, fileURL: null }
     }
-  }
+  })
 }
