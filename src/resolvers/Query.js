@@ -15,8 +15,18 @@ module.exports = {
   },
 
   exams: async (_, args, ctx, info) => {
-    const exams = await ctx.prisma.exams({ ...args }).$fragment(ExamFragment)
-    const connection = await ctx.prisma.examsConnection({ where: args.where })
+    var exams, connection
+    if (args.onlyVerified) {
+      exams = await ctx.prisma
+        .exams({ where: { ...args.where, verified: true }, first: args.first, skip: args.skip })
+        .$fragment(ExamFragment)
+      connection = await ctx.prisma.examsConnection({ where: { ...args.where, verified: true } })
+    } else {
+      exams = await ctx.prisma
+        .exams({ where: { ...args.where }, first: args.first, skip: args.skip })
+        .$fragment(ExamFragment)
+      connection = await ctx.prisma.examsConnection({ where: args.where })
+    }
     return {
       exams,
       count: connection.edges.length

@@ -3,7 +3,13 @@
 type Query {
   me: User
   exam(id: ID): Exam
-  exams(where: ExamWhereInput, orderBy: ExamOrderByInput, skip: Int, first: Int): ExamPayload
+  exams(
+    where: ExamWhereInput
+    orderBy: ExamOrderByInput
+    skip: Int
+    first: Int
+    onlyVerified: Boolean
+  ): ExamPayload
 }
 
 type Mutation {
