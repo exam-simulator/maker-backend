@@ -257,6 +257,19 @@ module.exports = {
     }
   },
 
+  requestVerification: async (_, args, ctx, info) => {
+    try {
+      const exam = await ctx.prisma.updateExam({
+        where: { id: args.id },
+        data: { verificationPending: true }
+      })
+      return { success: true }
+    } catch (error) {
+      console.log(error)
+      return { success: false }
+    }
+  },
+
   s3Sign: async (_, args, ctx, info) => {
     try {
       const Bucket = process.env.AWS_BUCKET

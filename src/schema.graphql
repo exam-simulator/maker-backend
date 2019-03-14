@@ -21,6 +21,7 @@ type Mutation {
   createNode(id: ID!, type: String): Payload
   updateNode(id: ID!, type: String, variant: Int, text: String): Payload
   deleteNode(id: ID!, type: String, questionId: ID, answers: [Boolean]): Payload
+  requestVerification(id: ID!): Payload
   s3Sign(filename: String!, filetype: String!): S3Payload
 }
 
