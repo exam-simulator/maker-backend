@@ -21,5 +21,6 @@ const prodOptions = {
 const transport = nodemailer.createTransport(isDev ? devOptions : sgTransport(prodOptions))
 
 module.exports = {
-  transport
+  transport,
+  compose: require('./templates')
 }

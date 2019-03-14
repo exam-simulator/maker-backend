@@ -4,6 +4,7 @@ const signToken = require('../middleware/signToken')
 const defaults = require('./utils/defaults')
 const validateSignup = require('./utils/validateSignup')
 const { getSignedUrl } = require('../services/aws')
+const { transport, compose } = require('../services/mail')
 const QuestionFragment = require('../fragments/QuestionFragment')
 const formatAnswerLabel = require('./utils/formatAnswerLabel')
 const createPassword = require('./utils/createPassword')
@@ -262,6 +263,12 @@ module.exports = {
       const exam = await ctx.prisma.updateExam({
         where: { id: args.id },
         data: { verificationPending: true }
+      })
+      await transport.sendMail({
+        from: process.env.MAIL_FROM,
+        to: ctx.user.email,
+        subject: 'Exam Maker verification request',
+        html: await compose.requestVerification(ctx.user.name, exam.title)
       })
       return { success: true }
     } catch (error) {
