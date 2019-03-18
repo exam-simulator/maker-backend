@@ -52,23 +52,26 @@ const server = new ApolloServer({
   context
 })
 
-app.get('/api/search', cors(), require('./routes/search'))
-
-app.get('/api/download', cors(), require('./routes/download'))
+// api routes used by Exam Simulator
+app.get('/api/search', cors(), require('./controllers/search'))
+app.get('/api/download', cors(), require('./controllers/download'))
 
 // add middleware to parse cookies and add user to request object
 app.use('*', cookieParser(), addUserIdToRequest, addUserToRequest)
 
+// create server and apply middleware
 const httpServer = http.createServer(app)
 server.applyMiddleware({ app, path, server, cors: corsSettings })
 server.installSubscriptionHandlers(httpServer)
 
+// listen on port unless testing
 if (NODE_ENV !== 'test') {
   httpServer.listen(PORT, () => {
-    console.log(`server up @ ${PORT}`)
+    console.log('server up @ port: %d env: %s', PORT, NODE_ENV)
   })
 }
 
+// exports to help testing
 module.exports = {
   typeDefs
 }
